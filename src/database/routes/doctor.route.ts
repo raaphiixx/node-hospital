@@ -5,7 +5,7 @@ import * as doctorModel from '../models/doctor.model';
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
     try {
         const doctors = await doctorModel.listAllDoctors();
         return res.status(200).json(doctors);
