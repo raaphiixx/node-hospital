@@ -2,6 +2,16 @@ import { prisma } from '../../database/prisma';
 import type { Doctor } from '@prisma/client';
 import type { CreateDoctorDTO } from '../schemas/doctor.schema';
 
+export function listAllDoctors(): Promise<Doctor[]> {
+    return prisma.doctor.findMany();
+}
+
+export function findDoctorById(id: number): Promise<Doctor | null> {
+    return prisma.doctor.findUnique({
+        where: { id }
+    });
+}
+
 export function createDoctor(
     data: CreateDoctorDTO
 ): Promise<Doctor> {
@@ -15,6 +25,3 @@ export function createDoctor(
     })
 }
 
-export function listAllDoctors(): Promise<Doctor[]> {
-    return prisma.doctor.findMany();
-}

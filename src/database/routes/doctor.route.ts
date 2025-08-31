@@ -15,6 +15,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        const doctor = await doctorModel.findDoctorById(id);
+        if(doctor === null) {
+            return res.status(404).json({ message: "Doctor not found" });
+        }
+        return res.status(200).json(doctor);
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    }
+})
+
 router.post('/register',validate(createDoctorSchema) ,async (req, res) => {
     try {
         const data = req.body as CreateDoctorDTO;
