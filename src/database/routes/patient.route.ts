@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validate } from "../../utils/validate";
-import { createPatientSchema, CreatePatientDTO } from "../schemas/patient.schema";
+import { createPatientSchema, CreatePatientDTO, updatePatientDTO } from "../schemas/patient.schema";
 import * as patientModel from '../models/patient.model';
 
 const router = Router();
@@ -34,6 +34,18 @@ router.post('/register', validate(createPatientSchema), async(req, res) => {
         const data = req.body as CreatePatientDTO;
         const patient = await patientModel.createPatient(data);
         return res.status(201).json(data);
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    };
+});
+
+router.patch('/update/:id', async(req, res) => {
+    try {
+        const id = Number(req.params.id);
+        const data = req.body as updatePatientDTO;
+        const updatePatient = await patientModel.updatePatient(id, data);
+        return res.status(200).json(updatePatient);
     } catch (error) {
         console.error("Error: ", error);
         return res.status(500);

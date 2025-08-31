@@ -7,4 +7,7 @@ export const createDoctorSchema = z.object({
     practitionerId: z.number().int().positive(),
 });
 
+export const updateDoctorSchema = createDoctorSchema.partial();
+
+export type UpdateDoctorDTO = z.infer<typeof updateDoctorSchema>;
 export type CreateDoctorDTO = z.infer<typeof createDoctorSchema>;

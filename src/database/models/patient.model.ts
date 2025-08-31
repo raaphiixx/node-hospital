@@ -1,6 +1,6 @@
 import { prisma } from "../../database/prisma";
 import type { Patient } from "@prisma/client";
-import type { CreatePatientDTO } from "../schemas/patient.schema";
+import type { CreatePatientDTO, updatePatientDTO } from "../schemas/patient.schema";
 
 export function listAllPatients(): Promise<Patient[]> {
     return prisma.patient.findMany();
@@ -24,7 +24,21 @@ export function createPatient(
             email: data.email,
             doctorId: data.doctorId
         }
-    })
+    });
+};
+
+export function updatePatient(id: number, data: updatePatientDTO): Promise<Patient | null> {
+    return prisma.patient.update({
+        where: {id},
+        data: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            gender: data.gender,
+            birthYear: data.birthDate,
+            email: data.email,
+            doctorId: data.doctorId
+        }
+    });
 };
 
 export function deletePatient(id: number): Promise<Patient | null> {

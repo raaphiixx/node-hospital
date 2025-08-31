@@ -10,6 +10,9 @@ export const createPatientSchema = z.object({
     .max(new Date().getFullYear()),
     email: z.email(),
     doctorId: z.number().int().positive(),    
-})
+});
 
+export const updatePatientSchema = createPatientSchema.partial();
+
+export type updatePatientDTO = z.infer<typeof createPatientSchema>;
 export type CreatePatientDTO = z.infer<typeof createPatientSchema>;

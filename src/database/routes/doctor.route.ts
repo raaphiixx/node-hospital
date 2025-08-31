@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validate } from "../../utils/validate";
-import { createDoctorSchema, CreateDoctorDTO } from "../schemas/doctor.schema";
+import { createDoctorSchema, CreateDoctorDTO, updateDoctorSchema, UpdateDoctorDTO } from "../schemas/doctor.schema";
 import * as doctorModel from '../models/doctor.model';
 
 const router = Router();
@@ -39,6 +39,18 @@ router.post('/register',validate(createDoctorSchema) ,async (req, res) => {
         res.status(400);
     }
 });
+
+router.patch('/update/:id', validate(updateDoctorSchema), async (req, res) => {
+    try {
+        const id = Number (req.params.id);
+        const data = req.body as UpdateDoctorDTO;
+        const updateDoctor = await doctorModel.updateDoctor(id, data);
+        res.status(200).json(updateDoctor);
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    }
+})
 
 router.delete('/delete/:id', async (req, res) => {
     try {
