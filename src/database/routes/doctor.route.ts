@@ -40,4 +40,15 @@ router.post('/register',validate(createDoctorSchema) ,async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        await doctorModel.deleteDoctor(id);
+        return res.status(202).end();
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    }
+})
+
 export default router;

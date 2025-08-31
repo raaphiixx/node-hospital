@@ -33,10 +33,22 @@ router.post('/register', validate(createPatientSchema), async(req, res) => {
     try {
         const data = req.body as CreatePatientDTO;
         const patient = await patientModel.createPatient(data);
-        return res.status(201).json(patient);
+        return res.status(201).json(data);
     } catch (error) {
         console.error("Error: ", error);
         return res.status(500);
     };
 });
+
+router.delete('/delete/:id', async(req, res) => {
+    try {
+        const id = Number(req.params.id);
+        await patientModel.deletePatient(id);
+        return res.status(204).end();
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500);
+    };
+});
+
 export default router;

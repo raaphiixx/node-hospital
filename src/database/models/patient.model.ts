@@ -10,7 +10,7 @@ export function findPatientById(id: number): Promise<Patient | null> {
     return prisma.patient.findUnique({
         where: { id }
     });
-}
+};
 
 export function createPatient(
     data: CreatePatientDTO
@@ -25,4 +25,10 @@ export function createPatient(
             doctorId: data.doctorId
         }
     })
-}
+};
+
+export function deletePatient(id: number): Promise<Patient | null> {
+    return prisma.patient.delete({
+        where: {id}
+    });
+};
