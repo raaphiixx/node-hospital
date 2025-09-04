@@ -34,7 +34,7 @@ No authentication was implemented (this was intentional / simplified for learnin
 ## Getting Started
 1. Clone the repo
 ```
-git clone <URL>
+git clone https://github.com/raaphiixx/node-hospital
 ```
 2. Open the project directory and run
 ```
